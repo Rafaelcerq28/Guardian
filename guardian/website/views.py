@@ -5,3 +5,6 @@ def index(request):
 
 def login(request):
     return render(request,'website/login.html')
+
+def cadprodutos(request):
+    return render(request,'website/cadprodutos.html')

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Cadastro de Produtos{% endblock %}
+{% block cabeca %}Cadastro de Produtos{% endblock %}
+{% block content %}
+<form class="col-md-12" style="padding-left: 1rem;">
+    <div class="form-group col-md-8">
+        <label class="text-dark">Modelo:</label>
+        <input type="text" class="form-control form-control-user" placeholder="Ex: Mouse USB">
+    </div>
+    <div class="form-group col-md-8">
+        <label class="text-dark">Tipo:</label>
+        <input type="text" class="form-control form-control-user" placeholder="Ex: Mouse">
+    </div>
+    <div class="form-group col-md-8">
+        <label class="text-dark">Fabricante:</label>
+        <input type="text" class="form-control form-control-user" placeholder="Ex: Multilaser">
+    </div>
+    <div class="form-group col-md-8">
+        <label class="text-dark">Tipo:</label>
+        <input type="text" class="form-control form-control-user" placeholder="Ex: Mouse">
+    </div>
+    <div class="form-group col-md-8">
+        <label class="text-dark">Quantidade:</label>
+        <input type="number" class="form-control form-control-user" placeholder="Ex: 5">
+    </div>
+    <br>
+    <a href="#" class="btn btn-secondary btn-user btn-block col-md-4">
+        Login
+    </a>
+    <br>
+</form>
+{% endblock %}
