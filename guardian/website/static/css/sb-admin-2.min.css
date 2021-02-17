@@ -11249,3 +11249,15 @@ body.sidebar-toggled footer.sticky-footer {
 .estilo-chapeu{
   color: #a9a4ab;
 }
+
+.list-group-item2-action:hover, .list-group-item2-action:focus {
+  z-index: 1;
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #e4e7f0;
+}
+
+.list-group-item2-action:active {
+  color: #858796; 
+  background-color: #d2d3da;
+}
