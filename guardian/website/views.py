@@ -16,3 +16,6 @@ def listaprodutos(request):
 
 def exibeproduto(request):
     return render(request,'website/exibeproduto.html')
+
+def editaproduto(request):
+    return render(request,'website/editaproduto.html')

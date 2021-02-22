@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-{% block title %}Cadastro de Produtos{% endblock %}
-{% block cabeca %}Cadastro de Produtos{% endblock %}
+{% block title %}Edição de Produtos{% endblock %}
+{% block cabeca %}Editar{% endblock %}
 {% block content %}
 <form class="col-md-12" style="padding-left: 1rem;">
     <div class="form-group col-md-8">
@@ -24,12 +24,29 @@
         <input type="number" class="form-control form-control-user" placeholder="Ex: 5">
     </div>
     <br>
-    <a href="listaprodutos" class="btn btn-success btn-user btn-block col-md-4 btn-lg">
-        <span class="icon text-white-50 mr-3">
-            <i class="fas fa-check"></i>
-        </span>
-        <span class="text">Cadastrar</span>
-    </a>
+    <!-- EDITANDO -->
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+                <a href="#" class="btn btn-success btn-user btn-block btn-lg">
+                    <span class="icon text-white-50 mr-3">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span class="text">Salvar</span>   
+                </a>
+        </div>
+        <div class="col-sm-2">
+
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <a href="#" class="btn btn-danger btn-user btn-block btn-lg">
+                <span class="icon text-white-50 mr-3">
+                    <i class="fas fa-trash"></i>
+                </span>
+                <span class="text">Deletar</span>
+            </a>
+        </div>
+    </div>
+    <!-- EDITANDO -->
     <br>
 </form>
 {% endblock %}

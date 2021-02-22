@@ -11,4 +11,5 @@ urlpatterns = [
     path('cadprodutos',views.cadprodutos),
     path('listaprodutos',views.listaprodutos),
     path('exibeproduto',views.exibeproduto),
+    path('editaproduto',views.editaproduto),
 ]
