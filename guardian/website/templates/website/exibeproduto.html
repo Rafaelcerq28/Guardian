@@ -1,41 +1,50 @@
 {% extends 'base.html' %}
-{% block title %} INSERIR NOME DO PRODUTO AQUI {% endblock %}
-{% block cabeca %} INSERIR NOME DO PRODUTO AQUI {% endblock %}
+{% block title %} {{prod.modelo}} {% endblock %}
+{% block cabeca %} Descrição do Produto {% endblock %}
 {% block content %}
 <div class="container-fluid col-lg-12">
+    <!-- Mensagem de retorno para o usuario-->
+    <ul class='messages' style="list-style: none;">
+        {% for message in messages %}
+        <li {% if message.tags %}class="alert alert-{{message.tags}} alert-dismissible"{% endif %}>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{message}}
+        </li>
+        {% endfor %}
+    </ul>
     
     <div>
         <span class="text-lg text-gray-700">Modelo:</span>
         <div class="row col-md-6 card-body card border-left-secondary">
-            <span class="text-gray-600 text-lg" style="text-align: center;">Mouse USB xpto</span>
+            <span class="text-gray-600 text-lg" style="text-align: center;">{{prod.modelo}}</span>
         </div>
     </div>
     <br>
     <div>
         <span class="text-lg text-gray-700">Tipo:</span>
         <div class="row col-md-6 card-body card border-left-secondary">
-            <span class="text-gray-600 text-lg" style="text-align: center;">Mouse</span>
+            <span class="text-gray-600 text-lg" style="text-align: center;">{{prod.tipo}}</span>
         </div>
     </div>
     <br>    
     <div>
         <span class="text-lg text-gray-700">Fabricante:</span>
         <div class="row col-md-6 card-body card border-left-secondary">
-            <span class="text-gray-600 text-lg" style="text-align: center;">Logitech</span>
+            <span class="text-gray-600 text-lg" style="text-align: center;">{{prod.fabricante}}</span>
         </div>
     </div>
     <br>
     <div>
         <span class="text-lg text-gray-700">Estoque:</span>
         <div class="row col-md-3 card-body card border-left-secondary">
-            <span class="text-gray-600 text-lg" style="text-align: center;">5</span>
+            <span class="text-gray-600 text-lg" style="text-align: center;">{{prod.estoque}}</span>
         </div>
     </div>
     <br>
     <br>
     <div>
-        <div class="row col-md-3 btn btn-secondary btn-lg">
-            <a href="editaproduto" class="text-gray-100 text-lg" style="text-align: center; text-decoration: none;">
+        <div class="row">
+            <a href="/editaproduto/{{prod.id}}" class="text-gray-100 col-md-3 btn btn-secondary btn-lg text-lg" style="text-align: center; text-decoration: none;">
                 <span class="icon text-white-50 mr-3">
                     <i class="fas fa-edit"></i>
                 </span>

@@ -11261,3 +11261,12 @@ body.sidebar-toggled footer.sticky-footer {
   color: #858796; 
   background-color: #d2d3da;
 }
+
+/* Messages */
+ul.messages {
+  padding: 0;
+}
+
+ul.messages li {
+  list-style: none;
+}
