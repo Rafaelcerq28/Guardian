@@ -32,6 +32,10 @@ def cadprodutos(request):
             messages.info(request,'Produto inserido com sucesso')
             #Redireciona para a listagem de produtos
             return redirect('/listaprodutos')
+        else:
+            messages.warning(request,"Parece que você inseriu uma informação inválida, tente novamente.")
+            form = produtoForm()
+            return render(request,'website/cadprodutos.html',{'form':form})
     #Caso não seja um POST, armazena o formulario no objeto form e redireciona ele para a tela de cadastro
     form = produtoForm()
     return render(request,'website/cadprodutos.html',{'form':form})
