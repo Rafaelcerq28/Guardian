@@ -14,17 +14,32 @@
             </li>
             {% endfor %}
         </ul>
-
-        <!-- Lista de produtos-->
-        <ul class="list-group list-group-flush col-md-8 col-lg-12">
-            {% for prod in prods %}
-            <li class="list-group-item list-group-item2-action ">
-                <a href="/exibeproduto/{{prod.id}}" style="text-decoration: none;">
-                    <span><i class="fas fa-barcode text-gray-900" style="margin-right: 1rem;"></i></span>
-                    <span class="text-gray-900">{{prod.modelo}}</span>
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
+        <br>
+    </div>
+        <!-- Teste com tabelas-->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-secondary">DataTables Example</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="example" class="table table-hover" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="text-gray-800 bg-gray-100">Nome</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for prod in prods %}
+                            <tr>
+                                <td>
+                                    <a href="/exibeproduto/{{prod.id}}" style="text-decoration: none;" class="text-gray-800">{{ prod.modelo }}</a>
+                                </td>     
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        <br>
     </div>
 {% endblock %}

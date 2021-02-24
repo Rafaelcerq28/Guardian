@@ -21,6 +21,9 @@
     <!-- Custom styles for this template-->
     <link rel="stylesheet" href="{% static 'css/sb-admin-2.min.css' %}">
 
+    <!-- CSS TABELAS-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+
 </head>
 
 <body id="page-top">
@@ -130,5 +133,13 @@
     <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
 
 </body>
-
+    <!-- Tables-->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script>
+      $(document).ready(function() 
+      {
+          $('#example').DataTable();
+      });	
+    </script>
 </html>
