@@ -37,7 +37,7 @@
     <div>
         <span class="text-lg text-gray-700">Estoque:</span>
         <div class="row col-md-3 card-body card border-left-secondary">
-            <span class="text-gray-600 text-lg" style="text-align: center;">{{prod.estoque}}</span>
+            <span class="text-gray-600 text-lg" style="text-align: center;"><strong>{{prod.estoque}}</strong></span>
         </div>
     </div>
     <br>
@@ -52,9 +52,82 @@
             </a>
         </div>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
+    <br><hr><br>
+</div>   
+
+
+<!-- TESTANDO UMA LISTA DE MOVIMENTACOES -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-secondary">Atividades do produto</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="example" class="table table-hover" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th class="text-gray-800 bg-gray-100">Numero NF</th>
+                        <th class="text-gray-800 bg-gray-100">Quantidade</th>
+                        <th class="text-gray-800 bg-gray-100">Data de Movimentacao</th>
+                        <th class="text-gray-800 bg-gray-100">Tipo de Movimentacao</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                            <td class="centraliza-th-table">
+                                <span class="text-gray-800">26410</span>
+                            </td>
+                            <td class="centraliza-th-table">
+                                <span class="text-gray-800">11</span>
+                            </td>
+                            <td class="centraliza-th-table">
+                                <span class="text-gray-800">25/01/2021</span>
+                            </td>     
+                            <td class="centraliza-th-table">
+                                <span class="text-gray-800">
+                                    <i class="fas fa-chevron-up fa-lg cor-entrada"></i>
+                                </span>
+                        </td>
+                        
+                        <tr>
+                            <td class="centraliza-th-table">
+                                <span class="text-gray-800">10844</span>
+                            </td>
+                            <td class="centraliza-th-table">
+                                <span class="text-gray-800">8</span>
+                            </td>
+                            <td class="centraliza-th-table">
+                                <span class="text-gray-800">28/01/2021</span>
+                            </td>     
+                            <td class="centraliza-th-table">
+                                <span class="text-gray-800">
+                                    <i class="fas fa-chevron-up fa-lg cor-saida"></i>
+                                </span>
+                        </td>
+
+                        <tr>
+                            <td class="centraliza-th-table">
+                                <span class="text-gray-800">53091</span>
+                            </td>
+                            <td class="centraliza-th-table">
+                                <span class="text-gray-800">9</span>
+                            </td>
+                            <td class="centraliza-th-table">
+                                <span class="text-gray-800">22/02/2021</span>
+                            </td>     
+                            <td class="centraliza-th-table">
+                                <span class="text-gray-800">
+                                    <i class="fas fa-chevron-up fa-lg cor-entrada"></i>
+                                </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
+    </div>
 </div>
+<br><br>
+
+
 {% endblock %}

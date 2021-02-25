@@ -11270,3 +11270,15 @@ ul.messages {
 ul.messages li {
   list-style: none;
 }
+
+.centraliza-th-table {
+  text-align:center;
+}
+
+.cor-entrada {
+  color: var(--success);
+}
+
+.cor-saida {
+  color: var(--danger)
+}
