@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render,get_object_or_404
 from .models import produtos
 from .forms import produtoForm
+from django.core.paginator import Paginator
 from django.contrib import messages
 
 #Metodos que redirecionam para as páginas
@@ -44,7 +45,14 @@ def cadprodutos(request):
 #--- MÉTODO PARA LISTAGEM DE PRODUTOS---
 def listaprodutos(request):
     #Seleciona os produtos do banco ordenados pelo modelo e armazena no objeto prods
-    prods = produtos.objects.all().order_by('modelo')
+    prods_list = produtos.objects.all().order_by('modelo')
+    
+    paginator = Paginator(prods_list,10)
+    
+    page = request.GET.get('page')
+
+    prods = paginator.get_page(page)
+
     #envia o objeto para a tela de listagem
     return render(request,'website/listaprodutos.html',{'prods':prods})
 

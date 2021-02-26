@@ -5,6 +5,24 @@
 
     <div class="col-md-12">
 
+        <!-- Topbar Search -->
+        <div class="card shadow mb-0 col-md-6">
+
+            <div class="card-body">
+                <form method="GET" class="d-none d-sm-inline-block form-inline col-md-12 navbar-search ">
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Digite aqui sua Busca"
+                            aria-label="Search" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="button">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <!-- Mensagem de retorno para o usuario-->
         <ul class='messages' style="list-style: none;">
             {% for message in messages %}
@@ -15,31 +33,38 @@
             {% endfor %}
         </ul>
         <br>
-    </div>
-        <!-- Teste com tabelas-->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-secondary">DataTables Example</h6>
+
+        <!-- Listagem de produtos-->
+        <div class="card shadow container-fluid">
+            <ul class="list-group list-group-flush col-md-8 col-lg-12 mt-4 mb-4">
+                {% for prod in prods %}
+                <li class="list-group-item list-group-item2-action ">
+                    <a href="/exibeproduto/{{prod.id}}" style="text-decoration: none;">
+                        <span><i class="fas fa-barcode text-gray-900" style="margin-right: 1rem;"></i></span>
+                        <span class="text-gray-900">{{prod.modelo}}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
         </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table id="example" class="table table-hover" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th class="text-gray-800 bg-gray-100">Nome</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for prod in prods %}
-                            <tr>
-                                <td>
-                                    <a href="/exibeproduto/{{prod.id}}" style="text-decoration: none;" class="text-gray-800">{{ prod.modelo }}</a>
-                                </td>     
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
         <br>
+        <!-- PAGINATOR -->
+        <div class="card shadow container-fluid">
+            <div class="step-links card-body" >
+                {% if prods.has_previous %}
+                    <a href="?page={{ prods.previous_page_number }}"><i class="mr-2 cor-seta fas fa-arrow-left"></i></a>
+                {% endif %}
+
+                {% if prods.paginator.num_pages %}
+                    <span>{{ prods.number}} de {{prods.paginator.num_pages}}</span>
+                {% endif %}
+
+                {% if prods.has_next %}
+                    <a href="?page={{ prods.next_page_number }}"><i class="ml-2 cor-seta fas fa-arrow-right"></i></a>
+                {% endif %}
+            </div>
+        </div>
+
+
     </div>
 {% endblock %}

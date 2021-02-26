@@ -11282,3 +11282,13 @@ ul.messages li {
 .cor-saida {
   color: var(--danger)
 }
+
+.cor-seta {
+  color: var(--secondary)
+}
+
+.step-links {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}
