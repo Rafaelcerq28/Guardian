@@ -5,10 +5,21 @@
 
     <div class="col-md-12">
 
-        <!-- Topbar Search -->
-        <div class="card shadow mb-0 col-md-6">
+        <!-- Mensagem de retorno para o usuario-->
+        <ul class='messages' style="list-style: none;">
+            {% for message in messages %}
+            <li {% if message.tags %}class="alert alert-{{message.tags}} alert-dismissible"{% endif %}>
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{message}}
+            </li>
+            {% endfor %}
+        </ul>
+        <br>
 
-            <div class="card-body">
+        <!-- Tabela -->
+        <div class="container-fluid card shadow">
+            <!-- Search -->
+            <div class="card-body mb-2 mt-2">
                 <form method="GET" class="d-none d-sm-inline-block form-inline col-md-12 navbar-search ">
                     <div class="input-group">
                         <input type="text" class="form-control bg-light border-0 small" placeholder="Digite aqui sua Busca"
@@ -21,38 +32,37 @@
                     </div>
                 </form>
             </div>
-        </div>
 
-        <!-- Mensagem de retorno para o usuario-->
-        <ul class='messages' style="list-style: none;">
-            {% for message in messages %}
-            <li {% if message.tags %}class="alert alert-{{message.tags}} alert-dismissible"{% endif %}>
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                {{message}}
-            </li>
-            {% endfor %}
-        </ul>
-        <br>
-
-        <!-- Listagem de produtos-->
-        <div class="card shadow container-fluid">
-            <ul class="list-group list-group-flush col-md-8 col-lg-12 mt-4 mb-4">
-                {% for prod in prods %}
-                <li class="list-group-item list-group-item2-action ">
-                    <a href="/exibeproduto/{{prod.id}}" style="text-decoration: none;">
-                        <span><i class="fas fa-barcode text-gray-900" style="margin-right: 1rem;"></i></span>
-                        <span class="text-gray-900">{{prod.modelo}}</span>
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Estoque</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for prod in prods %}
+                    <tr>
+                        <td>
+                            <a href="/exibeproduto/{{prod.id}}?page={{prods.number}}" style="text-decoration: none;">
+                                <span><i class="fas fa-barcode text-gray-900" style="margin-right: 1rem;"></i></span>
+                                <span class="text-gray-900">{{prod.modelo}}</span>
+                            </a>
+                        </td>
+                        <td>{{prod.estoque}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
         <br>
+
         <!-- PAGINATOR -->
         <div class="card shadow container-fluid">
             <div class="step-links card-body" >
                 {% if prods.has_previous %}
-                    <a href="?page={{ prods.previous_page_number }}"><i class="mr-2 cor-seta fas fa-arrow-left"></i></a>
+                    <a href="?page=1"><i class="mr-2 cor-seta fas fa-angle-double-left"></i></a>
+                    <a href="?page={{ prods.previous_page_number }}"><i class="mr-2 cor-seta fas fa-angle-left"></i></a>
                 {% endif %}
 
                 {% if prods.paginator.num_pages %}
@@ -60,11 +70,13 @@
                 {% endif %}
 
                 {% if prods.has_next %}
-                    <a href="?page={{ prods.next_page_number }}"><i class="ml-2 cor-seta fas fa-arrow-right"></i></a>
+                    <a href="?page={{ prods.next_page_number }}"><i class="ml-2 cor-seta fas fa-angle-right"></i></a>
+                    <a href="?page={{ prods.paginator.num_pages }}"><i class="ml-2 cor-seta fas fa-angle-double-right"></i></a>
                 {% endif %}
+                    
             </div>
         </div>
 
-
+    <br>
     </div>
 {% endblock %}

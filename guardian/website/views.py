@@ -59,9 +59,10 @@ def listaprodutos(request):
 
 #--- MÉTODO PARA EXIBIR O PRODUTO ---
 def exibeproduto(request,id):
+    last_page = request.GET.get('page')
     #Busca o objeto no banco pelo ID, se não encontrar redireciona para um 404
     prod = get_object_or_404(produtos,pk=id)
-    return render(request,'website/exibeproduto.html',{'prod':prod})
+    return render(request,'website/exibeproduto.html',{'prod':prod,'last_page':last_page})
 
 
 #--- MÉTODO PARA EDITAR OS PRODUTOS ---

@@ -1,8 +1,19 @@
 {% extends 'base.html' %}
 {% block title %} {{prod.modelo}} {% endblock %}
-{% block cabeca %} Descrição do Produto {% endblock %}
+{% block cabeca %}Descrição do Produto {% endblock %}
+
 {% block content %}
+
 <div class="container-fluid col-lg-12">
+    <!-- Link Voltar -->
+    <a class="text-gray-600" href="/listaprodutos?page={{last_page}}" style="text-decoration: none;">
+        <h6>
+            <span class="text-gray-600">
+                <i class="fas fa-angle-left mr-1 fa-lg"></i>
+            </span><strong>Voltar</strong> 
+        </h6>
+    </a>
+<hr>
     <!-- Mensagem de retorno para o usuario-->
     <ul class='messages' style="list-style: none;">
         {% for message in messages %}
@@ -13,24 +24,26 @@
         {% endfor %}
     </ul>
     
+    
+
     <div>
         <span class="text-lg text-gray-700">Modelo:</span>
         <div class="row col-md-6 card-body card border-left-secondary">
-            <span class="text-gray-600 text-lg" style="text-align: center;">{{prod.modelo}}</span>
+            <span class="text-gray-700 text-lg" style="text-align: center;">{{prod.modelo}}</span>
         </div>
     </div>
     <br>
     <div>
         <span class="text-lg text-gray-700">Tipo:</span>
         <div class="row col-md-6 card-body card border-left-secondary">
-            <span class="text-gray-600 text-lg" style="text-align: center;">{{prod.tipo}}</span>
+            <span class="text-gray-700 text-lg" style="text-align: center;">{{prod.tipo}}</span>
         </div>
     </div>
     <br>    
     <div>
         <span class="text-lg text-gray-700">Fabricante:</span>
         <div class="row col-md-6 card-body card border-left-secondary">
-            <span class="text-gray-600 text-lg" style="text-align: center;">{{prod.fabricante}}</span>
+            <span class="text-gray-700 text-lg" style="text-align: center;">{{prod.fabricante}}</span>
         </div>
     </div>
     <br>
