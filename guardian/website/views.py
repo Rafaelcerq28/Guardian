@@ -44,14 +44,20 @@ def cadprodutos(request):
 
 #--- MÉTODO PARA LISTAGEM DE PRODUTOS---
 def listaprodutos(request):
-    #Seleciona os produtos do banco ordenados pelo modelo e armazena no objeto prods
-    prods_list = produtos.objects.all().order_by('modelo')
-    
-    paginator = Paginator(prods_list,10)
-    
-    page = request.GET.get('page')
-
-    prods = paginator.get_page(page)
+    #armazena a palavra a ser pesquisada
+    search = request.GET.get('search')
+    #verifica se tem palava no filtro, senão passa para a proxima opcao
+    if search:
+        prods = produtos.objects.filter(modelo__icontains=search)
+    else:
+        #Seleciona os produtos do banco ordenados pelo modelo e armazena no objeto prods
+        prods_list = produtos.objects.all().order_by('modelo')
+        #salva a lista com os produtos no paginador e passa a quantidade de produtos a ser exibido por página
+        paginator = Paginator(prods_list,10)
+        #salva a pagina atual obtida pelo get
+        page = request.GET.get('page')
+        #salva a pagina no paginador
+        prods = paginator.get_page(page)
 
     #envia o objeto para a tela de listagem
     return render(request,'website/listaprodutos.html',{'prods':prods})
