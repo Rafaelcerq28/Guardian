@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import widgets
-from .models import produtos
+from .models import produtos, Movimentacoes
 
 class produtoForm(forms.ModelForm):
 
@@ -15,3 +15,9 @@ class produtoForm(forms.ModelForm):
             'fabricante': forms.TextInput(attrs={'class': 'form-control col-md-8'}),
             'estoque': forms.NumberInput(attrs={'class': 'form-control col-md-3'}),
         }
+
+class movimentacoesForm(forms.ModelForm):
+
+    class Meta:
+        model= Movimentacoes
+        fields = ('produto','tipo_mov','quantidade','data','numero_nf')

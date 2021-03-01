@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render,get_object_or_404
-from .models import produtos
-from .forms import produtoForm
+from .models import produtos, Movimentacoes
+from .forms import produtoForm, movimentacoesForm
 from django.core.paginator import Paginator
 from django.contrib import messages
 
@@ -110,3 +110,19 @@ def deletaproduto(request,id):
     #Retorna uma mensagem para o usuario
     messages.info(request,"Produto deletado com sucesso")
     return redirect('/listaprodutos')
+
+#--- Método para acessar as movimentações
+def movimentacao(request,id):
+    if request.method == 'POST':
+        form = movimentacoesForm(request.POST)
+        if form.is_valid():
+            movimentaco = form.save(commit=False)
+
+            messages.info(request,'Movimentação')
+            return redirect('/listaprodutos')
+
+    prod = get_object_or_404(produtos,pk=id)
+    form = movimentacoesForm()
+    return render(request,'website/movimentacao.html',{'form':form})
+
+
