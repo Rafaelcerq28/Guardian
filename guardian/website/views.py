@@ -1,14 +1,21 @@
 from django.db import models
 from django.shortcuts import redirect, render,get_object_or_404
 from .models import produtos, Movimentacoes
-from .forms import produtoForm, movimentacoesForm
+from .forms import produtoForm, movimentacoesForm, editForm
 from django.core.paginator import Paginator
 from django.contrib import messages
+import datetime
 
 #Metodos que redirecionam para as páginas
 
 def index(request):
-    return render(request,'website/index.html')
+    #Pega movimentações criadas nos ultimos 30 dias 
+    entrada_ult_30d = Movimentacoes.objects.filter(tipo_mov='entrada', created_at__gte=datetime.datetime.now()-datetime.timedelta(days=30)).count()
+    saida_ult_30d = Movimentacoes.objects.filter(tipo_mov='saida',created_at__gte=datetime.datetime.now()-datetime.timedelta(days=30)).count()
+    #aux = produtos.objects.filter(estoque_minimo=0)
+    estoque_min = produtos.objects.filter(estoque__lte=0).count()
+    return render(request,'website/index.html',{'entrada_ult_30d':entrada_ult_30d,'saida_ult_30d':saida_ult_30d,'estoque_min':estoque_min})
+    
 
 def login(request):
     return render(request,'website/login.html')
@@ -28,12 +35,13 @@ def cadprodutos(request):
             prod.modelo = prod.modelo.upper()
             prod.fabricante = prod.fabricante.upper()
             prod.tipo = prod.tipo.upper()
+            prod.estoque = 0
             #Grava no banco
             prod.save()
             #Mensagem de retorno para o usuario
             messages.info(request,'Produto inserido com sucesso')
             #Redireciona para a listagem de produtos
-            return redirect('/listaprodutos')
+            return redirect('/movimentacao/'+ str(prod.id))
         else:
             messages.warning(request,"Parece que você inseriu uma informação inválida, tente novamente.")
             form = produtoForm()
@@ -79,11 +87,11 @@ def editaproduto(request,id):
     #Pegao produto do banco e salva no objeto
     prod = get_object_or_404(produtos,pk=id)
     #cria um formulario do objeto retirado do banco
-    form = produtoForm(instance=prod)
+    form = editForm(instance=prod)
     #Verifica se a requisição é um POST
     if request.method == 'POST':
         #armazena os dados da requisição em um formulario instanciando o objeto produto
-        form = produtoForm(request.POST,instance=prod)
+        form = editForm(request.POST,instance=prod)
         #Veridica se o formulario é valido
         if form.is_valid():
             #Salva mas ainda não faz commit

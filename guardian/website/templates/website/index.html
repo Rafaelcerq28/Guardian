@@ -1,4 +1,117 @@
 {% extends 'base.html' %}
-{% block title %} Bem-Vindo! {% endblock %}
-{% block cabeca %} Bem vindo {% endblock %}
-{% block content %} <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam tempora autem reprehenderit neque optio enim nulla nihil labore cumque vel sunt blanditiis suscipit voluptas molestiae eos, placeat similique nobis tempore?</p> {% endblock %}
+{% block title %} Dashboard {% endblock %}
+{% block cabeca %} Dashboard {% endblock %}
+
+{% block content %} 
+
+<div class="row mt-4">
+
+    <!-- Entrada Card Example -->
+    <div class="col-xl-4 col-md-7 mb-4">
+        <div class="card border-bottom-secondary shadow h-100 py-4">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+                            Entradas nos últimos 30 dias</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800 mt-3">{{entrada_ult_30d}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-plus fa-2x cor-entrada"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Saida Card Example -->
+    <div class="col-xl-4 col-md-7 mb-4">
+        <div class="card border-bottom-secondary shadow h-100 py-4">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+                            Saídas nos últimos 30 dias</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800 mt-3">{{saida_ult_30d}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-minus fa-2x cor-saida"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Estoque mínimo -->
+    <div class="col-xl-4 col-md-7 mb-4">
+        <div class="card border-bottom-secondary shadow h-100 py-4">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+                            Produtos com estoque mínimo</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800 mt-3">{{estoque_min}}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-arrow-alt-circle-down fa-2x text-warning"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+
+    <!-- Estoque zerado -->
+    <div class="col-xl-4 col-md-7 mb-4">
+        <div class="card border-bottom-secondary shadow h-100 py-4">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+                            Produtos com estoque zerado</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800 mt-3">10</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-exclamation-triangle fa-2x cor-saida"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Ultimo cadastro -->
+    <div class="col-xl-4 col-md-7 mb-4">
+        <div class="card border-bottom-secondary shadow h-100 py-4">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+                            Ultimo produto cadastrado</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800 mt-3">Mouse M3600</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-barcode fa-2x text-primary"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Ultimo cadastro -->
+    <div class="col-xl-4 col-md-7 mb-4">
+        <div class="card border-bottom-secondary shadow h-100 py-4">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+                            Ultima saída</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800 mt-3">Leitor visão perfeita</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x cor-entrada"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% endblock %}

@@ -8,6 +8,7 @@ class produtos(models.Model):
     tipo = models.CharField(max_length=255)
     fabricante = models.CharField(max_length=255)
     estoque = models.IntegerField()
+    estoque_minimo = models.IntegerField()
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
