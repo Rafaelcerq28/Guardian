@@ -1,3 +1,4 @@
+from django.db import models
 from django.shortcuts import redirect, render,get_object_or_404
 from .models import produtos, Movimentacoes
 from .forms import produtoForm, movimentacoesForm
@@ -68,7 +69,9 @@ def exibeproduto(request,id):
     last_page = request.GET.get('page')
     #Busca o objeto no banco pelo ID, se não encontrar redireciona para um 404
     prod = get_object_or_404(produtos,pk=id)
-    return render(request,'website/exibeproduto.html',{'prod':prod,'last_page':last_page})
+    #Pega as movimentações
+    movs = Movimentacoes.objects.all().filter(produto_id = prod.id)
+    return render(request,'website/exibeproduto.html',{'prod':prod,'last_page':last_page,'movs':movs})
 
 
 #--- MÉTODO PARA EDITAR OS PRODUTOS ---
@@ -113,16 +116,35 @@ def deletaproduto(request,id):
 
 #--- Método para acessar as movimentações
 def movimentacao(request,id):
-    if request.method == 'POST':
-        form = movimentacoesForm(request.POST)
-        if form.is_valid():
-            movimentaco = form.save(commit=False)
-
-            messages.info(request,'Movimentação')
-            return redirect('/listaprodutos')
-
-    prod = get_object_or_404(produtos,pk=id)
+    #cria o formulario
     form = movimentacoesForm()
-    return render(request,'website/movimentacao.html',{'form':form})
+    #pega o produto no banco
+    prod = get_object_or_404(produtos,pk=id)
+    #Verifica se é um post
+    if request.method == 'POST':    
+        form = movimentacoesForm(request.POST)
+        #Verifica se o form é válido e insere o id do produto na tabela movimentação
+        if form.is_valid():
+            movimentacao = form.save(commit=False)
+            movimentacao.produto = prod
+            movimentacao.save()
+
+            #corrige valores do estoque
+            if movimentacao.tipo_mov == 'entrada':
+                prod.estoque += movimentacao.quantidade
+            else:
+                prod.estoque -= movimentacao.quantidade
+            #Salva o produto
+            prod.save()
+
+            #Manda uma mensagem para a tela
+            messages.info(request,'Movimentação realizada com sucesso')
+            return redirect('/exibeproduto/' + str(prod.id))
+        else:
+            messages.warning(request,'Uma ou mais informações incorretas, verifique os dados inseridos e tente novamente')
+            return render(request,'website/movimentacao.html',{'form':form,'prod':prod})
+            
+    #Envia o formulario para a tela
+    return render(request,'website/movimentacao.html',{'form':form,'prod':prod})
 
 

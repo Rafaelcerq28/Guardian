@@ -18,6 +18,12 @@ class produtoForm(forms.ModelForm):
 
 class movimentacoesForm(forms.ModelForm):
 
+    CHOICES = (
+    ('entrada','Entrada'),
+    ('saida','Saida')
+    )
+
     class Meta:
         model= Movimentacoes
-        fields = ('produto','tipo_mov','quantidade','data','numero_nf')
+        fields = ('tipo_mov','quantidade','numero_nf')
+

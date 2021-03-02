@@ -25,12 +25,12 @@ class Movimentacoes(models.Model):
     produto = models.ForeignKey(produtos,on_delete='cascade')
     tipo_mov = models.CharField(max_length=7,choices=STATUS)
     quantidade = models.IntegerField()
-    data = models.CharField(max_length=255)
+    data = models.DateTimeField(auto_now_add=True)
     numero_nf = models.IntegerField()
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        descricao = str(self.id) + " - " + str(self.numero_nf)
+        descricao = str(self.id) + " - " + str(self.numero_nf) + " - " + str(self.data)
         return descricao
