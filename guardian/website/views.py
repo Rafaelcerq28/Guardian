@@ -8,13 +8,26 @@ import datetime
 
 #Metodos que redirecionam para as páginas
 
+#--- METODO DA PAGINA INICIAL ---
 def index(request):
-    #Pega movimentações criadas nos ultimos 30 dias 
+    #Criacao do dashboard
+    #Pega movimentações criadas e saidas nos ultimos 30 dias 
     entrada_ult_30d = Movimentacoes.objects.filter(tipo_mov='entrada', created_at__gte=datetime.datetime.now()-datetime.timedelta(days=30)).count()
     saida_ult_30d = Movimentacoes.objects.filter(tipo_mov='saida',created_at__gte=datetime.datetime.now()-datetime.timedelta(days=30)).count()
-    #aux = produtos.objects.filter(estoque_minimo=0)
-    estoque_min = produtos.objects.filter(estoque__lte=0).count()
-    return render(request,'website/index.html',{'entrada_ult_30d':entrada_ult_30d,'saida_ult_30d':saida_ult_30d,'estoque_min':estoque_min})
+    #Pega produtos com estoque minimo e zerado
+    estoque_min = produtos.objects.extra(where=["estoque <= estoque_minimo"]).count()
+    estoque_zerado = produtos.objects.filter(estoque__lte=0).count()
+    #pega o umtimo produto cadastrado
+    ultimo_cadastro = produtos.objects.all().order_by('-created_at')[0]    
+    #pega a ultima movimentacao
+        #variavel auxiliar que armazena o id do produto da ultima movimentacao
+    aux = Movimentacoes.objects.all().order_by('-id')[0]
+        #pega o ultimo produto vendido
+    ultima_saida = get_object_or_404(produtos,pk=aux.produto_id)
+    
+    #Manda os dados para a view
+    return render(request,'website/index.html',{'entrada_ult_30d':entrada_ult_30d,'saida_ult_30d':saida_ult_30d,
+    'estoque_min':estoque_min,'estoque_zerado':estoque_zerado,'ultimo_cadastro':ultimo_cadastro,'ultima_saida':ultima_saida})
     
 
 def login(request):
