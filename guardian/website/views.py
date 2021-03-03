@@ -48,6 +48,7 @@ def cadprodutos(request):
             prod.modelo = prod.modelo.upper()
             prod.fabricante = prod.fabricante.upper()
             prod.tipo = prod.tipo.upper()
+            prod.estoque_minimo = abs(prod.estoque_minimo)
             prod.estoque = 0
             #Grava no banco
             prod.save()
@@ -147,14 +148,15 @@ def movimentacao(request,id):
         #Verifica se o form é válido e insere o id do produto na tabela movimentação
         if form.is_valid():
             movimentacao = form.save(commit=False)
+            movimentacao.quantidade = abs(movimentacao.quantidade)
             movimentacao.produto = prod
             movimentacao.save()
 
             #corrige valores do estoque
             if movimentacao.tipo_mov == 'entrada':
-                prod.estoque += movimentacao.quantidade
+                prod.estoque += abs(movimentacao.quantidade)
             else:
-                prod.estoque -= movimentacao.quantidade
+                prod.estoque -= abs(movimentacao.quantidade)
             #Salva o produto
             prod.save()
 
@@ -181,15 +183,16 @@ def movimentacaoCad(request,id):
         #Verifica se o form é válido e insere o id do produto na tabela movimentação
         if form.is_valid():
             movimentacao = form.save(commit=False)
+            movimentacao.quantidade = abs(movimentacao.quantidade)
             movimentacao.produto = prod
             movimentacao.tipo_mov = 'entrada'
             movimentacao.save()
 
             #corrige valores do estoque
             if movimentacao.tipo_mov == 'entrada':
-                prod.estoque += movimentacao.quantidade
+                prod.estoque += abs(movimentacao.quantidade)
             else:
-                prod.estoque -= movimentacao.quantidade
+                prod.estoque -= abs(movimentacao.quantidade)
             #Salva o produto
             prod.save()
 
