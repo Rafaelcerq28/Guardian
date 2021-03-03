@@ -49,7 +49,13 @@
                                 <span class="text-gray-900">{{prod.modelo}}</span>
                             </a>
                         </td>
-                        <td>{{prod.estoque}}</td>
+                        {% if prod.estoque <= 0 %}
+                            <td class="cor-saida">{{prod.estoque}}</td>
+                        {% elif prod.estoque <= prod.estoque_minimo and prod.estoque > 0 %}
+                            <td class="cor-alerta">{{prod.estoque}}</td>
+                        {% else %}
+                            <td>{{prod.estoque}}</td>
+                        {% endif %}
                     </tr>
                     {% endfor %}
                 </tbody>

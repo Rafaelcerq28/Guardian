@@ -86,7 +86,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
                             Ultimo produto cadastrado</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800 mt-3">{{ultimo_cadastro}}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800 mt-3"><a href="/exibeproduto/{{ultimo_cadastro.id}}" class="text-gray-800" title="Acessar o Produto">{{ultimo_cadastro}}</a></div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-barcode fa-2x text-primary"></i>
@@ -103,7 +103,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
                             Ultima saída</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800 mt-3">{{ultima_saida.modelo}}</div>
+                        <div class="h5 mb-0 font-weight-bold mt-3"><a href="/exibeproduto/{{ultima_saida.id}}" class="text-gray-800" title="Acessar o Produto">{{ultima_saida.modelo}}</a></div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-dollar-sign fa-2x cor-entrada"></i>

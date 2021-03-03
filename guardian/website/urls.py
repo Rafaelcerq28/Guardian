@@ -14,4 +14,7 @@ urlpatterns = [
     path('editaproduto/<int:id>',views.editaproduto),
     path('deletaproduto/<int:id>',views.deletaproduto),
     path('movimentacao/<int:id>',views.movimentacao),
+    path('movimentacaoCad/<int:id>',views.movimentacaoCad),
 ]
+
+ 

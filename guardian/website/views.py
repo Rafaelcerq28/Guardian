@@ -1,7 +1,7 @@
 from django.db import models
 from django.shortcuts import redirect, render,get_object_or_404
 from .models import produtos, Movimentacoes
-from .forms import produtoForm, movimentacoesForm, editForm
+from .forms import produtoForm, movimentacoesForm, editForm, movimentacoesCadForm
 from django.core.paginator import Paginator
 from django.contrib import messages
 import datetime
@@ -15,13 +15,13 @@ def index(request):
     entrada_ult_30d = Movimentacoes.objects.filter(tipo_mov='entrada', created_at__gte=datetime.datetime.now()-datetime.timedelta(days=30)).count()
     saida_ult_30d = Movimentacoes.objects.filter(tipo_mov='saida',created_at__gte=datetime.datetime.now()-datetime.timedelta(days=30)).count()
     #Pega produtos com estoque minimo e zerado
-    estoque_min = produtos.objects.extra(where=["estoque <= estoque_minimo"]).count()
+    estoque_min = produtos.objects.extra(where=["estoque <= estoque_minimo and estoque > 0"]).count()
     estoque_zerado = produtos.objects.filter(estoque__lte=0).count()
     #pega o umtimo produto cadastrado
     ultimo_cadastro = produtos.objects.all().order_by('-created_at')[0]    
     #pega a ultima movimentacao
         #variavel auxiliar que armazena o id do produto da ultima movimentacao
-    aux = Movimentacoes.objects.all().order_by('-id')[0]
+    aux = Movimentacoes.objects.filter(tipo_mov='saida').order_by('-id')[0]
         #pega o ultimo produto vendido
     ultima_saida = get_object_or_404(produtos,pk=aux.produto_id)
     
@@ -54,7 +54,7 @@ def cadprodutos(request):
             #Mensagem de retorno para o usuario
             messages.info(request,'Produto inserido com sucesso')
             #Redireciona para a listagem de produtos
-            return redirect('/movimentacao/'+ str(prod.id))
+            return redirect('/movimentacaoCad/'+ str(prod.id))
         else:
             messages.warning(request,"Parece que você inseriu uma informação inválida, tente novamente.")
             form = produtoForm()
@@ -169,3 +169,36 @@ def movimentacao(request,id):
     return render(request,'website/movimentacao.html',{'form':form,'prod':prod})
 
 
+#--- Método para acessar as movimentações a partir do cadastro
+def movimentacaoCad(request,id):
+    #cria o formulario
+    form = movimentacoesCadForm()
+    #pega o produto no banco
+    prod = get_object_or_404(produtos,pk=id)
+    #Verifica se é um post
+    if request.method == 'POST':    
+        form = movimentacoesCadForm(request.POST)
+        #Verifica se o form é válido e insere o id do produto na tabela movimentação
+        if form.is_valid():
+            movimentacao = form.save(commit=False)
+            movimentacao.produto = prod
+            movimentacao.tipo_mov = 'entrada'
+            movimentacao.save()
+
+            #corrige valores do estoque
+            if movimentacao.tipo_mov == 'entrada':
+                prod.estoque += movimentacao.quantidade
+            else:
+                prod.estoque -= movimentacao.quantidade
+            #Salva o produto
+            prod.save()
+
+            #Manda uma mensagem para a tela
+            messages.info(request,'Movimentação realizada com sucesso')
+            return redirect('/exibeproduto/' + str(prod.id))
+        else:
+            messages.warning(request,'Uma ou mais informações incorretas, verifique os dados inseridos e tente novamente')
+            return render(request,'website/movimentacaoCad.html',{'form':form,'prod':prod})
+            
+    #Envia o formulario para a tela
+    return render(request,'website/movimentacaoCad.html',{'form':form,'prod':prod})

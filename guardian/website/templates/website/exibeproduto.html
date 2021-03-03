@@ -49,9 +49,18 @@
     <br>
     <div>
         <span class="text-lg text-gray-700">Estoque:</span>
-        <div class="row col-md-3 card-body card border-left-secondary">
-            <span class="text-gray-600 text-lg" style="text-align: center;"><strong>{{prod.estoque}}</strong></span>
-        </div>
+        {% if prod.estoque <= 0 %}
+            <div class="row col-md-3 card-body card border-left-danger">
+                <span class="cor-saida text-lg" style="text-align: center;"><strong>{{prod.estoque}}</strong></span>
+            </div>
+        {% elif prod.estoque <= prod.estoque_minimo and prod.estoque > 0 %}
+            <div class="row col-md-3 card-body card border-left-warning">
+                <span class="text-lg cor-alerta" style="text-align: center;"><strong>{{prod.estoque}}</strong></span>
+        {% else %}
+            <div class="row col-md-3 card-body card border-left-secondary">
+                <span class="text-gray-600 text-lg" style="text-align: center;"><strong>{{prod.estoque}}</strong></span>
+            </div>
+        {% endif %}
     </div>
     <br>
     <br>
@@ -109,13 +118,13 @@
                                 {% if mov.tipo_mov == 'entrada' %}  
                                 <td class="centraliza-th-table">
                                     <span class="text-gray-800">
-                                        <i class="fas fa-plus fa-lg cor-entrada"></i>
+                                        <i class="fas fa-plus fa-lg cor-entrada" title="{{mov.tipo_mov}}"></i>
                                     </span>
                                 </td>
                                 {% else %}
                                 <td class="centraliza-th-table">
                                     <span class="text-gray-800">
-                                        <i class="fas fa-minus fa-lg cor-saida"> </i>
+                                        <i class="fas fa-minus fa-lg cor-saida" title="{{mov.tipo_mov}}"> </i>
                                     </span>
                                 </td>
                                 {% endif %}

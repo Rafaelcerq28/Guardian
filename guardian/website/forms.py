@@ -19,7 +19,7 @@ class produtoForm(forms.ModelForm):
             'modelo': forms.TextInput(attrs={'class': 'form-control col-md-8'}),
             'tipo': forms.TextInput(attrs={'class': 'form-control col-md-8'}),
             'fabricante': forms.TextInput(attrs={'class': 'form-control col-md-8'}),
-            'estoque_minimo': forms.TextInput(attrs={'class': 'form-control col-md-3'}),
+            'estoque_minimo': forms.NumberInput(attrs={'class': 'form-control col-md-3'}),
         }
 
 class editForm(forms.ModelForm):
@@ -52,3 +52,8 @@ class movimentacoesForm(forms.ModelForm):
         model= Movimentacoes
         fields = ('tipo_mov','quantidade','numero_nf')
 
+class movimentacoesCadForm(forms.ModelForm):
+
+    class Meta:
+        model= Movimentacoes
+        fields = ('quantidade','numero_nf')

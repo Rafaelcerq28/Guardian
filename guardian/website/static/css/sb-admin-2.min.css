@@ -11283,6 +11283,10 @@ ul.messages li {
   color: var(--danger)
 }
 
+.cor-alerta {
+  color: var(--warning)
+}
+
 .cor-seta {
   color: var(--secondary)
 }
