@@ -6,8 +6,8 @@ from . import views
 #url a ser digitada na barra de navegação e caminho para o método correspondente a ela na view
 
 urlpatterns = [
-    path('',views.login),
-    path('index',views.index),
+    #path('',views.login),
+    path('',views.index),
     path('cadprodutos',views.cadprodutos),
     path('listaprodutos',views.listaprodutos),
     path('exibeproduto/<int:id>',views.exibeproduto),

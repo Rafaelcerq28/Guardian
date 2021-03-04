@@ -1,3 +1,4 @@
+{% load bootstrap %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +14,7 @@
     <title>Login</title>
 
     <!-- Custom fonts for this template-->
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}"/>
     <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -45,30 +47,22 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Bem vindo!</h1>
                                     </div>
-                                    <form class="user">
-                                        <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Entre com o seu login">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Senha">
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Continuar 
-                                                    Conectado</label>
-                                            </div>
-                                        </div>
-                                        <a href="index" class="btn btn-secondary btn-user btn-block">
-                                            Login
-                                        </a>
-                                        <hr>
-                                    </form>
+                                        <!-- Form login -->
+                                        <form class="user" method="post">
+                                            {% csrf_token %}
+
+                                            <input type="hidden" name="next" value="{{ next }}">
+
+                                            {{ form|bootstrap }}
+                                            <br>
+                                            <button type="submit" class="btn btn-secondary btn-user btn-block">
+                                                Login
+                                            </button>
+                                            <br>
+                                            <hr>
+                                        </form>
                                     <div class="text-center">
-                                        <a class="small" href="register.html">Criar uma Conta!</a>
+                                        <a class="small" href="/accounts/register">Criar uma Conta!</a>
                                     </div>
                                 </div>
                             </div>

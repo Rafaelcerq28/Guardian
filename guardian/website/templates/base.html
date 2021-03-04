@@ -11,7 +11,7 @@
     <meta name="author" content="">
 
     <title>{% block title %}{% endblock %}</title>
-
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}"/>
     <!-- Custom fonts for this template-->
     <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <link
@@ -109,7 +109,7 @@
                 <div class="modal-body">Selecione "Sair" abaixo se você deseja de encerrar sua sessão.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" href="/">Sair</a>
+                    <a class="btn btn-primary" href="/accounts/logout">Sair</a>
                 </div>
             </div>
         </div>

@@ -53,7 +53,13 @@
     <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+            <span class="mr-2 d-none d-lg-inline text-gray-600 small" style="text-transform: capitalize;">
+                {% if user.get_short_name %}
+                    {{user.get_short_name}}
+                {% else %}
+                    {{user.get_username}}
+                {% endif %}
+            </span>
             <i class="fas fa-hat-wizard size estilo-chapeu"></i>
         </a>
         <!-- Dropdown - User Information -->

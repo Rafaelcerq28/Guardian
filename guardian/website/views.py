@@ -1,5 +1,6 @@
 from django.db import models
 from django.shortcuts import redirect, render,get_object_or_404
+from django.contrib.auth.decorators import login_required
 from .models import produtos, Movimentacoes
 from .forms import produtoForm, movimentacoesForm, editForm, movimentacoesCadForm
 from django.core.paginator import Paginator
@@ -9,6 +10,7 @@ import datetime
 #Metodos que redirecionam para as páginas
 
 #--- METODO DA PAGINA INICIAL ---
+@login_required
 def index(request):
     #Criacao do dashboard
     #Pega movimentações criadas e saidas nos ultimos 30 dias 
@@ -30,11 +32,8 @@ def index(request):
     'estoque_min':estoque_min,'estoque_zerado':estoque_zerado,'ultimo_cadastro':ultimo_cadastro,'ultima_saida':ultima_saida})
     
 
-def login(request):
-    return render(request,'website/login.html')
-
-
 #--- MÉTODO QUE REALIZA O CADASTRO DOS PRODUTOS ---
+@login_required
 def cadprodutos(request):
     #Verifica se o método que está recebendo é um POST
     if request.method == 'POST':
@@ -66,6 +65,7 @@ def cadprodutos(request):
 
 
 #--- MÉTODO PARA LISTAGEM DE PRODUTOS---
+@login_required
 def listaprodutos(request):
     #armazena a palavra a ser pesquisada
     search = request.GET.get('search')
@@ -87,6 +87,7 @@ def listaprodutos(request):
 
 
 #--- MÉTODO PARA EXIBIR O PRODUTO ---
+@login_required
 def exibeproduto(request,id):
     last_page = request.GET.get('page')
     #Busca o objeto no banco pelo ID, se não encontrar redireciona para um 404
@@ -97,6 +98,7 @@ def exibeproduto(request,id):
 
 
 #--- MÉTODO PARA EDITAR OS PRODUTOS ---
+@login_required
 def editaproduto(request,id):
     #Pegao produto do banco e salva no objeto
     prod = get_object_or_404(produtos,pk=id)
@@ -127,6 +129,7 @@ def editaproduto(request,id):
     return render(request,'website/editaproduto.html',{'form':form, 'prod':prod})
 
 #--- MÉTODO PARA DELETAR OS PRODUTOS ---
+@login_required
 def deletaproduto(request,id):
     #Procura o usuario no banoc
     prod = get_object_or_404(produtos,pk=id)
@@ -137,6 +140,7 @@ def deletaproduto(request,id):
     return redirect('/listaprodutos')
 
 #--- Método para acessar as movimentações
+@login_required
 def movimentacao(request,id):
     #cria o formulario
     form = movimentacoesForm()
@@ -172,6 +176,7 @@ def movimentacao(request,id):
 
 
 #--- Método para acessar as movimentações a partir do cadastro
+@login_required
 def movimentacaoCad(request,id):
     #cria o formulario
     form = movimentacoesCadForm()

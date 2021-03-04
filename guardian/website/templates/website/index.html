@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
 {% block title %} Dashboard {% endblock %}
-{% block cabeca %} Olá! (INSERIR NOME DO SER HUMANO AQUI) {% endblock %}
+{% block cabeca %} Olá <span style="text-transform: capitalize;">
+    {% if user.get_short_name %}
+        {{user.get_short_name}} 
+    {% else %}
+        {{user.get_username}}
+    {% endif %}</span>
+{% endblock %}
 
 {% block content %} 
-
 <div class="row mt-4">
 
+    {% if user.is_authenticated %}
     <!-- Entrada Card Example -->
     <div class="col-xl-4 col-md-7 mb-4">
         <div class="card border-bottom-secondary shadow h-100 py-4">
@@ -112,6 +118,6 @@
             </div>
         </div>
     </div>
-    
+    {% endif %}
 </div>
 {% endblock %}
