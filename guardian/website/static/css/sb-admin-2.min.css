@@ -11306,3 +11306,13 @@ ul.messages li {
     background-color: #fff;
     background-clip: border-box;
 }
+
+.img-registro {
+    max-width:470px;
+    max-height:909px;
+    width: auto;
+    height: auto;
+    width:467px;
+    background-position: center;
+    background-size: cover;
+}
