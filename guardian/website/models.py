@@ -23,7 +23,7 @@ class Movimentacoes(models.Model):
         ('saida','Saida')
     )
 
-    produto = models.ForeignKey(produtos,on_delete='cascade')
+    produto = models.ForeignKey(produtos,on_delete=models.CASCADE)
     tipo_mov = models.CharField(max_length=7,choices=STATUS)
     quantidade = models.IntegerField()
     data = models.DateTimeField(auto_now_add=True)

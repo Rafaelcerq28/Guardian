@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='movimentacoes',
             name='produto',
-            field=models.ForeignKey(default=1, on_delete='cascade', to='website.produtos'),
+            field=models.ForeignKey(default=1, on_delete=models.CASCADE, to='website.produtos'),
             preserve_default=False,
         ),
     ]
