@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% block title %} {{cliente.nome}} {% endblock %}
+{% block cabeca %}Cliente {% endblock %}
+{% block content %}
+
+<div class="container-fluid col-lg-12">
+    <!-- Link Voltar -->
+    <a class="text-gray-600" href="/listaclientes?page={{last_page}}" style="text-decoration: none;">
+        <h6>
+            <span class="text-gray-600">
+                <i class="fas fa-angle-left mr-1 fa-lg"></i>
+            </span><strong>Voltar</strong> 
+        </h6>
+    </a>
+<hr>
+    <!-- Mensagem de retorno para o usuario-->
+    <ul class='messages' style="list-style: none;">
+        {% for message in messages %}
+        <li {% if message.tags %}class="alert alert-{{message.tags}} alert-dismissible"{% endif %}>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{message}}
+        </li>
+        {% endfor %}
+    </ul>
+    
+    
+
+    <div>
+        <span class="text-lg text-gray-700">Razão Social:</span>
+        <div class="row col-md-6 card-body card border-left-secondary mb-4">
+            <span class="text-gray-700 text-lg" style="text-align: center;">{{cliente.nome}}</span>
+        </div>
+        
+        <span class="text-lg text-gray-700">CNPJ:</span>
+        {% if cliente.cnpj %}
+        <div class="row col-md-6 card-body card border-left-secondary mb-4">
+            <span class="text-gray-700 text-lg" style="text-align: center;">{{cliente.cnpj}}</span>
+        </div>
+        {% else %}
+        <div class="row col-md-6 card-body card border-left-secondary mb-4">
+            <span class="text-gray-700 text-lg" style="text-align: center;">Não informado</span>
+        </div>
+        {% endif %}
+
+        <span class="text-lg text-gray-700">Telefone:</span>
+        {% if cliente.telefone %}        
+        <div class="row col-md-6 card-body card border-left-secondary">
+            <span class="text-gray-700 text-lg" style="text-align: center;">{{cliente.telefone}}</span>
+        </div>
+        {% else %}
+        <div class="row col-md-6 card-body card border-left-secondary">
+            <span class="text-gray-700 text-lg" style="text-align: center;">Não informado</span>
+        </div>
+        {% endif %}
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div>
+        <div class="row">
+            <a href="/editacliente/{{cliente.id}}" class="text-gray-100 col-md-3 btn btn-secondary btn-lg text-lg" style="text-align: center; text-decoration: none;">
+                <span class="icon text-white-50 mr-3">
+                    <i class="fas fa-edit"></i>
+                </span>
+                <span class="text">Editar</span>
+            </a>
+
+            <div class="col-md-1"></div>
+            
+
+        </div>
+    </div>
+    <br><hr><br>
+</div>   
+
+<!-- TESTANDO UMA LISTA DE MOVIMENTACOES -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-secondary">Atividades do cliente</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="example" class="table table-hover" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th class="text-gray-800 bg-gray-100">Movimentação</th>
+                        <th class="text-gray-800 bg-gray-100">Produto</th>
+                        <th class="text-gray-800 bg-gray-100">Quantidade</th>
+                        <th class="text-gray-800 bg-gray-100">Numero NF</th>
+                        <th class="text-gray-800 bg-gray-100">Data</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    {% for mov in movimentacao %}
+                        <tr>
+                            {% if mov.tipo_mov == 'saida' %}
+                                <td class="text-center">
+                                    <span class="text-gray-800">
+                                        <i class="fas fa-minus fa-lg cor-saida" title="saida"> </i>
+                                    </span>
+                                </td>
+                            {% else %}
+                                <td class="text-center">
+                                    <span class="text-gray-800">
+                                        <i class="fas fa-minus fa-lg cor-entrada" title="entrada"> </i>
+                                    </span>
+                                </td>
+                            {% endif %}
+                            <td class="centraliza-th-table">
+                                <a class="xpto" href="/exibeproduto/{{mov.produto.id}}"><span class="text-gray-800">{{mov.produto}}</span></a>
+                            </td>       
+                            <td class="centraliza-th-table">
+                                <span class="text-gray-800">{{mov.quantidade}}</span>
+                            </td>                         
+                            <td class="centraliza-th-table">
+                                <span class="text-gray-800">{{mov.numero_nf}}</span>
+                            </td>                               
+                            <td class="centraliza-th-table">
+                                <span class="text-gray-800">{{mov.created_at}}</span>
+                            </td>
+                        </tr>
+                    {% endfor %}    
+                </tbody>
+            </table>
+        </div>
+        <br>
+    </div>
+</div>
+<br><br>
+
+
+
+{% endblock %}

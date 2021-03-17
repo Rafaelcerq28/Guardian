@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %}Edição de Produtos{% endblock %}
+{% block cabeca %}Editar{% endblock %}
+{% block content %}
+<form class="col-md-12" style="padding-left: 1rem;" method="POST">
+    {% csrf_token %}
+    
+    {{ form.as_p }}
+    
+    <br>
+    <div class="row">
+        <div class="col-md-2 mb-4">
+            <button type="submit" class="btn btn-success btn-user btn-block btn-lg">
+                <span class="icon text-white-50 mr-3">
+                    <i class="fas fa-check"></i>
+                </span>
+                <span class="text">Salvar</span>   
+            </button>
+        </div>
+        <div class="col-md-1">
+          <!-- Espaçamento -->
+      </div>       
+        <div class="col-md-2 mb-4">
+            <a href="/exibeproduto/{{prod.id}}" class="btn btn-secondary btn-user btn-block btn-lg" style="padding-left: 0.75rem;">
+              <span class="icon text-white-50 mr-3">
+                  <i class="fas fa-undo"></i>
+              </span>
+              <span class="text">Cancelar</span>   
+            </a>
+      </div>
+      <div class="col-md-1">
+        <!-- Espaçamento -->
+    </div>
+        <div class="col-md-2 mb-4">
+            <button type="button" class="btn btn-danger btn-user btn-block btn-lg" data-toggle="modal" data-target="#myModal">
+                <span class="icon text-white-50 mr-3">
+                    <i class="fas fa-trash"></i>
+                </span>
+                <span class="text">Deletar</span>   
+            </button>
+        </div>
+    </div>
+</form>
+<br>
+
+<!-- Button to Open the Modal -->
+<!--
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    Open modal
+  </button>
+-->
+  <!-- The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Deletar</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          Tem <strong>certeza</strong> que quer deletar o produto <strong>{{prod.modelo}}</strong>?
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+            <a class="btn btn-danger" href="/deletaproduto/{{prod.id}}">Sim, eu gostaria de <strong>DELETAR</strong></a>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Não, eu desejo <strong>SAIR</strong></button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

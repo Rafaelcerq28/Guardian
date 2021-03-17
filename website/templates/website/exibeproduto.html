@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% block title %} {{prod.modelo}} {% endblock %}
+{% block cabeca %}Descrição do Produto {% endblock %}
+
+{% block content %}
+
+<div class="container-fluid col-lg-12">
+    <!-- Link Voltar -->
+    <a class="text-gray-600" href="/listaprodutos?page={{last_page}}" style="text-decoration: none;">
+        <h6>
+            <span class="text-gray-600">
+                <i class="fas fa-angle-left mr-1 fa-lg"></i>
+            </span><strong>Voltar</strong> 
+        </h6>
+    </a>
+<hr>
+    <!-- Mensagem de retorno para o usuario-->
+    <ul class='messages' style="list-style: none;">
+        {% for message in messages %}
+        <li {% if message.tags %}class="alert alert-{{message.tags}} alert-dismissible"{% endif %}>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{message}}
+        </li>
+        {% endfor %}
+    </ul>
+    
+    
+
+    <div>
+        <span class="text-lg text-gray-700">Modelo:</span>
+        <div class="row col-md-6 card-body card border-left-secondary">
+            <span class="text-gray-700 text-lg" style="text-align: center;">{{prod.modelo}}</span>
+        </div>
+    </div>
+    <br>
+    <div>
+        <span class="text-lg text-gray-700">Tipo:</span>
+        <div class="row col-md-6 card-body card border-left-secondary">
+            <span class="text-gray-700 text-lg" style="text-align: center;">{{prod.tipo}}</span>
+        </div>
+    </div>
+    <br>    
+    <div>
+        <span class="text-lg text-gray-700">Fabricante:</span>
+        <div class="row col-md-6 card-body card border-left-secondary">
+            <span class="text-gray-700 text-lg" style="text-align: center;">{{prod.fabricante}}</span>
+        </div>
+    </div>
+    <br>
+    <div>
+        <span class="text-lg text-gray-700">Estoque:</span>
+        {% if prod.estoque <= 0 %}
+            <div class="row col-md-3 card-body card border-left-danger">
+                <span class="cor-saida text-lg" style="text-align: center;"><strong>{{prod.estoque}}</strong></span>
+            </div>
+        {% elif prod.estoque <= prod.estoque_minimo and prod.estoque > 0 %}
+            <div class="row col-md-3 card-body card border-left-warning">
+                <span class="text-lg cor-alerta" style="text-align: center;"><strong>{{prod.estoque}}</strong></span>
+        {% else %}
+            <div class="row col-md-3 card-body card border-left-secondary">
+                <span class="text-gray-600 text-lg" style="text-align: center;"><strong>{{prod.estoque}}</strong></span>
+            </div>
+        {% endif %}
+    </div>
+    <br>
+    <br>
+    <div>
+        <div class="row">
+            <a href="/editaproduto/{{prod.id}}" class="text-gray-100 col-md-3 btn btn-secondary btn-lg text-lg" style="text-align: center; text-decoration: none;">
+                <span class="icon text-white-50 mr-3">
+                    <i class="fas fa-edit"></i>
+                </span>
+                <span class="text">Editar</span>
+            </a>
+
+            <div class="col-md-1"></div>
+            
+            <a href="/movcliente/{{prod.id}}" class="text-gray-100 col-md-3 btn btn-info btn-lg text-lg" style="text-align: center; text-decoration: none;">
+                <span class="icon text-white-50 mr-3">
+                    <i class="fas fa-exchange-alt"></i>
+                </span>
+                <span class="text">Movimentar</span>
+            </a>
+        </div>
+    </div>
+    <br><hr><br>
+</div>   
+
+
+<!-- TESTANDO UMA LISTA DE MOVIMENTACOES -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-secondary">Atividades do produto</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="example" class="table table-hover" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th class="text-gray-800 bg-gray-100">Movimentação</th>
+                        <th class="text-gray-800 bg-gray-100">Cliente</th>
+                        <th class="text-gray-800 bg-gray-100">Quantidade</th>
+                        <th class="text-gray-800 bg-gray-100">Numero NF</th>
+                        <th class="text-gray-800 bg-gray-100">Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for mov in movs %}
+                        <tr>
+                            {% if mov.tipo_mov == 'entrada' %}  
+                            <td class="text-center">
+                                <span class="text-gray-800">
+                                    <i class="fas fa-plus fa-lg cor-entrada" title="{{mov.tipo_mov}}"></i>
+                                </span>
+                            </td>
+                            {% else %}
+                            <td class="text-center">
+                                <span class="text-gray-800">
+                                    <i class="fas fa-minus fa-lg cor-saida" title="{{mov.tipo_mov}}"> </i>
+                                </span>
+                            </td>
+                            {% endif %}
+                            <td class="centraliza-th-table">
+                                <a class="xpto" href="/exibecliente/{{mov.clientes.all.first.id}}"><span class="text-gray-800">{{mov.clientes.all.first.nome}}</span></a>
+                            </td>
+                            <td class="centraliza-th-table">
+                                <span class="text-gray-800">{{mov.quantidade}}</span>
+                            </td>                            
+                            <td class="centraliza-th-table">
+                                <span class="text-gray-800">{{mov.numero_nf}}</span>
+                            </td>                               
+                            <td class="centraliza-th-table">
+                                <span class="text-gray-800">{{mov.data}}</span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <br>
+    </div>
+</div>
+<br><br>
+
+
+{% endblock %}

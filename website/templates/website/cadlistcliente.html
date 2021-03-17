@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block title %}Movimentacao{% endblock %}
+{% block cabeca %}Selecione ou cadastre o cliente {% endblock %}
+{% block content %}
+
+<div class="col-md-12">
+    <a class="text-gray-600" href="/exibeproduto/{{prod.id}}" style="text-decoration: none;">
+        <h6>
+            <span class="text-gray-600">
+                <i class="fas fa-angle-left mr-1 fa-lg"></i>
+            </span><strong>Voltar</strong> 
+        </h6>
+    </a>
+
+<!-- Mensagem de retorno para o usuario-->
+    <ul class='messages' style="list-style: none;">
+        {% for message in messages %}
+        <li {% if message.tags %}class="alert alert-{{message.tags}} alert-dismissible"{% endif %}>
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{message}}
+        </li>
+        {% endfor %}
+    </ul>
+    <br>
+    <h3 class="h3 mb-3 text-gray-800">Pesquisar</h3>
+    <!-- Tabela -->
+    <div class="container-fluid card shadow">
+        <!-- Search -->
+        <div class="card-body mb-2 mt-2">
+            <form method="GET" id="search-form" class="d-none d-sm-inline-block form-inline col-md-12 navbar-search ">
+                <div class="input-group">
+                    <input type="text" name="search" id="search" class="form-control bg-light border-0 small" placeholder="Digite aqui sua Busca"
+                        aria-label="Search" aria-describedby="basic-addon2" value="{{request.GET.search}}">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary" id="search-btn" type="button">
+                            <i class="fas fa-search fa-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Razão Social</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cliente in clientes %}
+                <tr>
+                    <td>
+                        <a href="/movimentacao/{{prod.id}}/{{cliente.id}}" style="text-decoration: none;">
+                            <span class="text-gray-900">{{cliente.nome}}</span>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- PAGINATOR -->
+        <div class="card-borda-nunca container-fluid">
+            <div class="step-links card-body" >
+                {% if clientes.has_previous %}
+                    <a href="?page=1"><i class="mr-2 cor-seta fas fa-angle-double-left"></i></a>
+                    <a href="?page={{ clientes.previous_page_number }}"><i class="mr-2 cor-seta fas fa-angle-left"></i></a>
+                {% endif %}
+
+                {% if clientes.paginator.num_pages %}
+                    <span>{{ clientes.number}} de {{clientes.paginator.num_pages}}</span>
+                {% endif %}
+
+                {% if clientes.has_next %}
+                    <a href="?page={{ clientes.next_page_number }}"><i class="ml-2 cor-seta fas fa-angle-right"></i></a>
+                    <a href="?page={{ clientes.paginator.num_pages }}"><i class="ml-2 cor-seta fas fa-angle-double-right"></i></a>
+                {% endif %}
+                    
+            </div>
+        </div>
+    </div>
+<br>
+<hr>
+<br>
+    <h3 class="h3 mb-0 text-gray-800">Cadastrar cliente</h3>
+    <br>
+    <form class="col-md-8" style="padding-left: 1rem;" method="POST">
+        {% csrf_token %}
+        
+        {{ form | bootstrap}}
+        <br>
+        <!-- <input type="submit" class="btn btn-success btn-user btn-block col-md-4 btn-lg fas fa-check" value="Cadastrar"> -->
+        <button type="submit" class="btn btn-success btn-user btn-block col-md-4 btn-lg">
+            <span class="icon text-white-50 mr-3">
+                <i class="fas fa-check"></i>
+            </span>
+            <span class="text">Cadastrar</span>   
+        </button>
+        <br>
+    </form>
+</div>
+{% endblock %}

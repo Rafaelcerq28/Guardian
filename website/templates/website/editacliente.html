@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Edição de Cliente{% endblock %}
+{% block cabeca %}Editar{% endblock %}
+{% block content %}
+<form class="col-md-12" style="padding-left: 1rem;" method="POST">
+    {% csrf_token %}
+
+    <label for="">Nome</label>
+    {{ form.nome }}
+    <label for="">CNPJ</label>
+    {{ form.cnpj}}
+    <label for="">Telefone</label>
+    {{ form.telefone }}
+
+    <br>
+    <div class="row">
+        <div class="col-md-2 mb-4">
+            <button type="submit" class="btn btn-success btn-user btn-block btn-lg">
+                <span class="icon text-white-50 mr-3">
+                    <i class="fas fa-check"></i>
+                </span>
+                <span class="text">Salvar</span>   
+            </button>
+        </div>
+        <div class="col-md-1">
+          <!-- Espaçamento -->
+      </div>       
+        <div class="col-md-2 mb-4">
+            <a href="/exibecliente/{{cliente.id}}" class="btn btn-secondary btn-user btn-block btn-lg" style="padding-left: 0.75rem;">
+              <span class="icon text-white-50 mr-3">
+                  <i class="fas fa-undo"></i>
+              </span>
+              <span class="text">Cancelar</span>   
+            </a>
+      </div>
+      <div class="col-md-1">
+        <!-- Espaçamento -->
+    </div>
+
+
+</form>
+<br>
+
+
+{% endblock %}

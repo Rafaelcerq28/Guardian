@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block title %}Produtos{% endblock %}
+{% block cabeca %}Listagem de Produtos{% endblock %}
+{% block content %}
+
+    <div class="col-md-12">
+
+        <!-- Mensagem de retorno para o usuario-->
+        <ul class='messages' style="list-style: none;">
+            {% for message in messages %}
+            <li {% if message.tags %}class="alert alert-{{message.tags}} alert-dismissible"{% endif %}>
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{message}}
+            </li>
+            {% endfor %}
+        </ul>
+        <br>
+
+        <!-- Tabela -->
+        <div class="container-fluid card shadow">
+            <!-- Search -->
+            <div class="card-body mb-2 mt-2">
+                <form method="GET" id="search-form" class="d-none d-sm-inline-block form-inline col-md-12 navbar-search ">
+                    <div class="input-group">
+                        <input type="text" name="search" id="search" class="form-control bg-light border-0 small" placeholder="Digite aqui sua Busca"
+                            aria-label="Search" aria-describedby="basic-addon2" value="{{request.GET.search}}">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" id="search-btn" type="button">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Estoque</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for prod in prods %}
+                    <tr>
+                        <td>
+                            <a href="/exibeproduto/{{prod.id}}?page={{prods.number}}" style="text-decoration: none;">
+                                <span><i class="fas fa-barcode text-gray-900" style="margin-right: 1rem;"></i></span>
+                            {% if prod.estoque <= 0 %}
+                            <span class="cor-saida">{{prod.modelo}}</span>
+                            {% else %}
+                                <span class="text-gray-900">{{prod.modelo}}</span>
+                            {% endif %}
+                            </a>
+                        </td>
+                        {% if prod.estoque <= 0 %}
+                            <td class="cor-saida">{{prod.estoque}}</td>
+                        {% elif prod.estoque <= prod.estoque_minimo and prod.estoque > 0 %}
+                            <td class="cor-alerta">{{prod.estoque}}</td>
+                        {% else %}
+                            <td>{{prod.estoque}}</td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- PAGINATOR -->
+            <div class="card-borda-nunca container-fluid">
+                <div class="step-links card-body" >
+                    {% if prods.has_previous %}
+                        <a href="?page=1"><i class="mr-2 cor-seta fas fa-angle-double-left"></i></a>
+                        <a href="?page={{ prods.previous_page_number }}"><i class="mr-2 cor-seta fas fa-angle-left"></i></a>
+                    {% endif %}
+
+                    {% if prods.paginator.num_pages %}
+                        <span>{{ prods.number}} de {{prods.paginator.num_pages}}</span>
+                    {% endif %}
+
+                    {% if prods.has_next %}
+                        <a href="?page={{ prods.next_page_number }}"><i class="ml-2 cor-seta fas fa-angle-right"></i></a>
+                        <a href="?page={{ prods.paginator.num_pages }}"><i class="ml-2 cor-seta fas fa-angle-double-right"></i></a>
+                    {% endif %}
+                        
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+    </div>
+{% endblock %}

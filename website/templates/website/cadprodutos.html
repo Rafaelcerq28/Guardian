@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastro de Produtos{% endblock %}
+{% block cabeca %}Cadastro de Produtos{% endblock %}
+{% block content %}
+
+<!-- Mensagem de retorno para o usuario-->
+<ul class='messages' style="list-style: none;">
+    {% for message in messages %}
+    <li {% if message.tags %}class="alert alert-{{message.tags}} alert-dismissible"{% endif %}>
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{message}}
+    </li>
+    {% endfor %}
+</ul>
+
+<form class="col-md-12" style="padding-left: 1rem;" method="POST">
+    {% csrf_token %}
+    
+    {{ form.as_p }}
+    
+    <br>
+    <!-- <input type="submit" class="btn btn-success btn-user btn-block col-md-4 btn-lg fas fa-check" value="Cadastrar"> -->
+    <button type="submit" class="btn btn-success btn-user btn-block col-md-4 btn-lg">
+        <span class="icon text-white-50 mr-3">
+            <i class="fas fa-check"></i>
+        </span>
+        <span class="text">Cadastrar</span>   
+    </button>
+    <br>
+</form>
+{% endblock %}
